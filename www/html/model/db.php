@@ -15,4 +15,108 @@ function get_db_connect(){
     return $dbh;
   }
 
+function insert_shift($card, $place, $time, $user, $dbh){
+  if($card === 'arrive'){
+    insert_arrive($place, $time, $user, $dbh);
+  }else{
+    insert_leave($place, $time, $user, $dbh);
+  }
+}
+function insert_arrive($place, $time, $user, $dbh){
+  $sql = "
+        INSERT INTO 
+          shift_arrive(
+            `user_name`, 
+            `arrive_place`, 
+            `create_datetime`
+            ) 
+        VALUES(
+          :user,
+          :place,
+          :time
+          );";
+  $params = [':user' => $user, ':place' => $place, 'time' => $time];
+  return execute_query($dbh, $sql, $params);
+}
+
+function insert_leave($place, $time, $user, $dbh){
+  $sql = "
+        INSERT INTO 
+          shift_leave(
+            `user_name`, 
+            `arrive_place`, 
+            `create_datetime`
+            ) 
+        VALUES(
+          :user,
+          :place,
+          :time
+          );";
+  $params=[':user' => $user, ':place' => $place, 'time' => $time];
+  return execute_query($dbh, $sql, $params);
+}
+// function check_card($card){
+//   if($card === 'arrive'){
+//     return "shift_arrive";
+//   }else{
+//     return "shift_leave";
+//   }
+// }
+
+function get_shift($card, $user, $dbh){
+  if($card === 'arrive'){
+    get_arrive($user, $dbh);
+  }else{
+    get_leave($user, $dbh);
+  }
+}
+
+function get_arrive($user, $dbh){
+  $sql = "
+          SELECT 
+            arrive_place AS place, create_datetime AS date
+          FROM 
+            shift_arrive
+          WHERE 
+            `user_name` = :user
+          ORDER BY 
+            create_datetime DESC 
+          LIMIT 1
+        ";
+          //9daa40cd6c172006652a460e86ca8597
+  $params=[':user' => $user];
+  return fetch_query($sql, $params, $dbh);
+}
+
+function get_leave($user, $dbh){
+  $sql = "SELECT 
+            arrive_place AS place, create_datetime AS dat
+          FROM 
+            shift_leave
+          WHERE 
+            user_name = :user
+          LIMIT 1
+          ";
+  $params=[':user'=>$user];
+  return fetch_query($sql, $params, $dbh);
+}
+
+function fetch_query($sql, $params = array(), $dbh){
+  try {
+    $statement = $dbh->prepare($sql);
+    $statement->execute($params);
+    return $statement->fetch();
+  } catch (PDOException $e) {
+    throw $e;
+  }
+}
+
+function execute_query($dbh, $sql, $params = array()){
+  try {
+    $statement = $dbh->prepare($sql);
+    return $statement->execute($params); 
+  } catch (PDOException $e) {
+    throw $e;
+  }
+}
 ?>
