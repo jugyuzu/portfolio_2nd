@@ -1,0 +1,138 @@
+/**/
+body{
+    margin:0;
+    background-color: #003333;
+    color: #FFFFEE;
+    
+}
+#background{
+    background: url(./../img/wood.jpg);
+    background-size:auto;
+    width: 1080px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 15px;
+    
+}
+#black{
+    background-color: #003300;
+    padding: 10px;
+}
+p,ul,li,a{
+    color: #FFFFEE;
+    text-decoration: none;
+}
+ul,li{
+    font-size: 20px;
+}
+/*ヘッダー*/
+#top_design{
+    width: 1000px;
+    margin: 0 auto;
+    height: 60px;
+    display: flex;
+    position: relative;
+}
+
+#top_aicon{
+    position: absolute;bottom: 0;right: 0;
+}
+main{
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+}
+nav{
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    text-align: center;
+    
+}
+ul{
+    margin: 40px 0;
+}
+li{
+    margin: 20px;
+}
+
+#logo{
+    height: 60px;
+    width: 120px;
+    margin-left: 0px;
+}
+
+#aicon{
+    height: 50px;
+    width: 50px;
+    
+}
+#cart{
+    height: 50px;
+    width: 50px;    
+}
+
+.rei{
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 6px;
+}
+.new_product{
+    border: 0.5px solid;
+    border-color: #FFFFEE;
+    border-radius: 8px;
+}
+a:not(.item_url){
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+a:not(.item_url)::after{
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  content: '';
+  width: 100%;
+  height: 3px;
+  background: #FFFFEE;
+  transform: scale(0, 1);
+  transform-origin: left;
+  transition: transform .5s;
+}
+a:not(.item_url):hover::after{
+  transform: scale(1, 1);
+}
+
+.item{
+    margin: 20px;
+    margin-right: 21.5px;
+    display: inline-block;
+    text-align: center;
+    border: 2px solid;
+    border-color: transparent;
+}
+.item:first-child{
+    margin-left: 20px;
+}
+.item:last-child{
+    margin-right: 20px;
+}
+.item img{
+    width: 100px;
+    height: 100px;
+}
+.item_img{
+    width: 200px;
+    height: 200px;
+}
+.item p{
+    text-align: center;
+}
+
+.item:hover{
+    border: 2px solid;
+    border-color: #6699FF;
+}
+
+
