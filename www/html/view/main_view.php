@@ -41,7 +41,7 @@
       min-width: 260px;
       margin-left: 20px;
       height: 500px;
-      position:relative
+      position:relative;
     }
     #container{
       min-width: 800px;
@@ -50,6 +50,13 @@
       background-image: url('../view/css/note5.svg');
       background-repeat: no-repeat;
       position: relative;
+    }
+    #gallary{
+      min-width: 800px;
+      min-height:1000px;
+      
+      position: absolute; top: 320px;left: 280px;
+      z-index:1;
     }
     button{
       border: none;
@@ -90,6 +97,52 @@
     .img:first-child{
       display:inline;
     }
+    #inkImg{
+      width:200px;
+      height:200px;
+      position:absolute;top: 500px;left: 1200px;
+    }
+    .penImg{
+      width:400px;
+      height:400px;
+      position:absolute;top:-20px;left: 0px;
+    }
+    .penActive{
+      position:absolute;top:-20px;left: 0px;
+      width:400px;
+      height:400px;
+      transition :all 5s ease;
+      transform: translateX(1160px);
+    }
+    .ink{
+      position:absolute;top:121px;left: 1217px;
+      width:250px;
+      height:250px;
+    }
+    .inkActive{
+      position:absolute;top:121px;left: 1217px;
+      width:250px;
+      height:250px;
+      transition :all 0.3s ease-in;
+      transform: translatey(180px);
+    }
+    .title{
+      width: 0px;
+      height: 110px;
+      overflow: hidden;
+      position:absolute;top:320px;left: 92px;
+      transition: 1000ms linear;
+    }
+    .titleShow{
+      position:absolute;top:320px;left: 92px;
+      height: 110px;
+      width: 400px;
+    }
+    .show_title{
+      position:absolute;top:320px;left: 92px;
+      height: 110px;
+      width: 400px;
+    }
 </style>
 </head>
 <body>
@@ -112,6 +165,11 @@
       </ul>
     </nav>
     <div id="container">
+      <img src="../view/css/note_title.png" alt="" class="title">
+    </div>
+    <div id="gallary">
+      <img src="../view/css/ink.svg" alt="" id="inkImg">
+      <img src="../view/css/fd6.svg" alt="" class="penImg" >
     </div>
     <template id="g_template">
       <div class="template_style">
@@ -144,12 +202,43 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script>
-    const images =$('.img');
-    const slide  =$('#slide').children();
+    const images  =$('.img');
+    const slide   =$('#slide').children();
+    const img     =$('.penImg');
+    const inkImage=$('<img src="../view/css/sqi.svg" alt="" class="ink" >');
+
     let index =0;
     let timeCounter = 0;
     let idPosition = $("#navi").offset().top;
 
+    const showTitle = function(){
+      $('.title').addClass('titleShow')
+    }
+
+    const removeInk = function(){
+      $('.inkActive').remove();
+      setTimeout(moveInk, 2000);
+    }
+
+    const dropInk = function(){
+      $('.ink').addClass("inkActive");
+      $('.ink').removeClass("ink");
+      setTimeout(removeInk,2000);
+    }
+
+    const Accumulate = function(){
+      $('.ink').attr('src','../view/css/sqi2.svg');
+      setTimeout(dropInk, 3000);
+    }
+    
+    const moveInk = function(){
+        $('<img src="../view/css/sqi.svg" alt="" class="ink" >').appendTo('#gallary').hide().fadeIn('slow');
+        setTimeout(Accumulate, 3000);
+     }
+    const slideImg  = function(){
+       img.removeClass("penImg");
+       img.addClass("penActive");
+      }
 
     const slideShow = function() {
       images.eq(index).css('display', 'none');
@@ -157,10 +246,13 @@
       if(index == images.length){
         index=0;
       }
-       images.eq(index).fadeIn("fast");
-     }
-
-     setInterval(slideShow, 3000);
+      images.eq(index).fadeIn("fast");
+    }
+    
+    setTimeout(slideShow, 3000);
+    setTimeout(slideImg, 800);
+    setTimeout(showTitle, 800);
+    setTimeout(moveInk, 9000);
     
     $(window).scroll(function(){
       let scroll = $(document).scrollTop();
@@ -176,6 +268,7 @@
     function change_note(){
       $('#container').html("");
       $('#container').css('background-image','url(../view/css/note5.svg)');
+      $('#container').append('<img src="../view/css/note_title.png" alt="" class="show_title>');
     }
 
     function active_template(tag){
