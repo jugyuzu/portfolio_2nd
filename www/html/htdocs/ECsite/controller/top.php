@@ -14,13 +14,13 @@ try {
         // $_SESSION['user_name']= session_id();
         // $session = $_SESSION['user_name'];
         $dbh=get_db_connect();
-            //新着装具義足を５件ずつ取得
-            if(empty($_COOKIE['id'])){
-                $_SESSION['user_name']= session_id();
-                $session = $_SESSION['user_name'];
-                insert_user_id($dbh,$session);
-                setcookie('id',$session,time()+60*60*24*2);
-            }
+        //新着装具義足を５件ずつ取得
+        if(empty($_COOKIE['id'])){
+            $_SESSION['user_name']= session_id();
+            $session = $_SESSION['user_name'];
+            insert_user_id($dbh,$session);
+            setcookie('id',$session,time()+60*60*24*2);
+        }
             $session = $_COOKIE['id'];
             $_SESSION['name']=$_COOKIE['id'];
             $data = select_user($dbh,$session);

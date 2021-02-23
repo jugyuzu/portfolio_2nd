@@ -56,8 +56,6 @@
                 `ec_user`(`user_name`) 
             VALUES 
                 (:user)
-            limit
-                1
         ';
         $params = ['user'=>$user];
         execute_query($sql, $params, $dbh);

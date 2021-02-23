@@ -100,22 +100,7 @@
       <img src="../view/css/morning.jpg" alt="img03" class="img">
       <img src="../view/css/temple.jpg" alt="img04" class="img">
     </div>
-        <!-- <ul class="slider">
-          <li><img src="../view/css/art.jpg" alt="img01"></li>
-          <li><img src="../view/css/bike.jpg" alt="img02"></li>
-          <li><img src="../view/css/morning.jpg" alt="img03"></li>
-          <li><img src="../view/css/temple.jpg" alt="img04"></li>
-        </ul> -->
-        <!-- <div><img src="../view/css/art.jpg" alt="img01"></div>
-        <div><img src="../view/css/bike.jpg" alt="img02"></div>
-        <div><img src="../view/css/morning.jpg" alt="img03"></div>
-        <div><img src="../view/css/temple.jpg" alt="img04"></div> -->
-      
     
-      <!-- <div><button class="greeting" onclick="active_template('g_template')">初めに</button></div>
-      <div><button class="portfolio" onclick="active_template('port_template')">ポートフォリオ</button></div>
-      <div><button class="prof" onclick="active_template('prof_template')">自己紹介</button></div>
-      <div><button class="home" onclick="change_note()">home</button></div> -->
   </header>
   <div id="main">
     <nav id="navi">
@@ -144,6 +129,7 @@
           <p>ジーコーディングとリバースジオコーディング,ajaxを使用しています</p>
         <a href="../htdocs/ECsite/controller/top.php" class="temp">義肢装具のECサイト</a>
           <p>義肢装具自体を知らない方も多いのでどういったものがあるのか、義肢のユーザーにはどういった部品があるのかを知ってもらうためのアプリです</p>
+          <p>※値段、商品名、説明は実際のものとは違います。</p>
       </div>
     </template>
     <template id="prof_template">
@@ -199,37 +185,10 @@
       let content = template.content;
       let clone = document.importNode(content, true);
       $(clone).appendTo("#container");
-      // $('.template_style').addClass("show");
-      //animeCSS();
+      
     }
-    // function animeCSS(){
-    //   // アニメーションさせたいクラス
-    //   var container = $(".template_style");
-    //   // アニメーションスピード
-    //   var speed = 80;
-
-    //   // テキストの間にスペースを入れます
-    //   var content = $(container).html();
-    //   var text = $.trim(content);
-    //   var newHtml = "";
-
-    //   // スペースで区切ったテキストを、テキストの数だけspanで囲む
-    //   text.split("").forEach(function(v) {
-    //    newHtml += '<span>' + v + '</span>';
-    //   });
-
-    //   // spanで囲んだテキスト群をHTMLに戻す
-    //   $(container).html(newHtml);
-
-    //   // 1文字ずつ表示
-    //   var txtNum = 0;
-    //   setInterval(function() {
-    //     $(container).find('span').eq(txtNum).css({opacity: 1});
-    //    txtNum++
-    //   }, speed);
-    // }
+    
   </script>
   
-  <!-- <script src="../view/css/slick/slick.js" type="text/javascript" charset="utf-8"></script> -->
 </body>
 </html>
