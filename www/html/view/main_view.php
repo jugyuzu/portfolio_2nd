@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../view/css/html5reset-1.6.1 (2).css">
-  <!-- <link rel="stylesheet" type="text/css" href="../view/css/slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="../view/css/slick/slick.css"> -->
   
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
   
   <style type="text/css">
     body{
@@ -16,9 +16,11 @@
       color:#630;
       line-height:40px;
       font-size:20px;
+      height: 1400px;
     }
     header{
       /* background-color: #556B2F; */
+      width: 100%;
       min-width: 1150px;
       height:300px;
       border: solid 1px black;
@@ -56,7 +58,7 @@
       min-height:1000px;
       
       position: absolute; top: 320px;left: 280px;
-      z-index:1;
+      
     }
     button{
       border: none;
@@ -74,6 +76,7 @@
       top : 60px;
       left: 80px; 
       text-indent: 1em;
+      z-index: 1;
       
     }
     .template_style span{
@@ -85,6 +88,7 @@
       opacity: 1;
     } */
     #slide{
+      width: 100%;
       min-width: 1150px;
       height:300px;
     }
@@ -93,6 +97,7 @@
       height:100%;
       object-fit:cover;
       display: none;
+      margin: 0;
     }
     .img:first-child{
       display:inline;
@@ -100,7 +105,7 @@
     #inkImg{
       width:200px;
       height:200px;
-      position:absolute;top: 500px;left: 1200px;
+      position:absolute;top: 500px;left: 845px;
     }
     .penImg{
       width:400px;
@@ -112,37 +117,32 @@
       width:400px;
       height:400px;
       transition :all 5s ease;
-      transform: translateX(1160px);
+      transform: translateX(790px);
     }
     .ink{
-      position:absolute;top:121px;left: 1217px;
+      position:absolute;top:121px;left: 846px;
       width:250px;
       height:250px;
     }
     .inkActive{
-      position:absolute;top:121px;left: 1217px;
+      position:absolute;top:121px;left: 846px;
       width:250px;
       height:250px;
       transition :all 0.3s ease-in;
       transform: translatey(180px);
     }
     .title{
-      width: 0px;
-      height: 110px;
-      overflow: hidden;
+      width: 450px;
+      height: 55px;
       position:absolute;top:320px;left: 92px;
-      transition: 1000ms linear;
+      font-family: 'Rock Salt', cursive;
+      font-size:40px;
     }
-    .titleShow{
-      position:absolute;top:320px;left: 92px;
-      height: 110px;
-      width: 400px;
+    .title span{
+      opacity: 0;
+      transition: 1s ease-in-out;
     }
-    .show_title{
-      position:absolute;top:320px;left: 92px;
-      height: 110px;
-      width: 400px;
-    }
+   
 </style>
 </head>
 <body>
@@ -165,7 +165,8 @@
       </ul>
     </nav>
     <div id="container">
-      <img src="../view/css/note_title.png" alt="" class="title">
+      <!-- <img src="../view/css/note_title.png" alt="" class="title"> -->
+      <div class="title"></div>
     </div>
     <div id="gallary">
       <img src="../view/css/ink.svg" alt="" id="inkImg">
@@ -202,17 +203,32 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script>
-    const images  =$('.img');
-    const slide   =$('#slide').children();
-    const img     =$('.penImg');
-    const inkImage=$('<img src="../view/css/sqi.svg" alt="" class="ink" >');
-
+    const images   =$('.img');
+    const slide    =$('#slide').children();
+    const img      =$('.penImg');
+    const inkImage =$('<img src="../view/css/sqi.svg" alt="" class="ink" >');
+    
+    let spanSplit  ="";
     let index =0;
     let timeCounter = 0;
     let idPosition = $("#navi").offset().top;
+    let titleText  = 'curiosity-memoirs';
 
-    const showTitle = function(){
-      $('.title').addClass('titleShow')
+    const insertTitle = function(){
+      var txtNum = 0;
+      setInterval(function() {
+        $('.title').find('span').eq(txtNum).css('opacity', '1');
+        txtNum++
+      }, 80);
+    }
+
+    const splitTitle = function(){
+      //split('')で１文字ずつに区切る
+      titleText.split("").forEach(font => {
+        spanSplit += "<span>" + font + "</span>";
+      });
+      $('.title').html(spanSplit);
+      insertTitle();
     }
 
     const removeInk = function(){
@@ -249,11 +265,6 @@
       images.eq(index).fadeIn("fast");
     }
     
-    setTimeout(slideShow, 3000);
-    setTimeout(slideImg, 800);
-    setTimeout(showTitle, 800);
-    setTimeout(moveInk, 9000);
-    
     $(window).scroll(function(){
       let scroll = $(document).scrollTop();
       let moveAmount = idPosition + (scroll - 310)+ "px";
@@ -268,7 +279,8 @@
     function change_note(){
       $('#container').html("");
       $('#container').css('background-image','url(../view/css/note5.svg)');
-      $('#container').append('<img src="../view/css/note_title.png" alt="" class="show_title>');
+      $('<img src="../view/css/note_title.png" alt="" class="show_title>').appendTo('#container');
+      $('#container').append('<div class="title">' + titleText + '</div>');
     }
 
     function active_template(tag){
@@ -281,6 +293,10 @@
       
     }
     
+    setTimeout(splitTitle, 800);
+    setInterval(slideShow, 3000);
+    setTimeout(slideImg, 800);
+    setTimeout(moveInk, 9000);
   </script>
   
 </body>
